@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "doadmin",
+    "password": "AVNS_jn3YLQZF5fb2oLJnSP4",
+    "database": "Billing",
+    "host": "shah-backend-do-user-13124658-0.b.db.ondigitalocean.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "doadmin",
+    "password": "AVNS_jn3YLQZF5fb2oLJnSP4",
+    "database": "Billing" ,
+    "host": "shah-backend-do-user-13124658-0.b.db.ondigitalocean.com",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "doadmin",
+    "password": "AVNS_jn3YLQZF5fb2oLJnSP4",
+    "database": "Billing",
+    "host": "shah-backend-do-user-13124658-0.b.db.ondigitalocean.com",
+    "dialect": "postgres"
+  }
+}

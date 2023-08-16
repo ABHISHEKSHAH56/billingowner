@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+enum PLANTYPE{
+  MONTHLY
+  YEARLY
+}
+
+enum ROLE{
+  OWNER
+  USER 
+  CO_OWNER
+}
+model tbl_owners{
+  id   String @id @default(uuid())
+  shopName String
+  mobile String
+  planType PLANTYPE @default(MONTHLY)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  isActive Boolean @default(true)
+  address  String?
+  user tbl_user[] @relation("SHOPUSER RELATIONSHIP")
+  product tbl_product[] @relation("SHOPPRODUCT RELATIONSHIP")
+  billing tbl_billing[] @relation("SHOPBILLING RELATIONSHIP")
+
+  
+}
+model tbl_items{
+  id   String @id @default(uuid())
+  billing tbl_billing  @relation(fields: [billingID], references: [id])
+  billingID String
+  productID String 
+  qty Int
+  price Int
+  discount String 
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+}
+model tbl_billing{
+  id String @id @default(uuid())
+  shop tbl_owners @relation("SHOPBILLING RELATIONSHIP",fields: [shopID], references: [id])
+  shopID String
+  total Int
+  items  tbl_items[]
+  
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+
+}
+model tbl_product{
+  id String @id @default(uuid())
+  shop tbl_owners @relation("SHOPPRODUCT RELATIONSHIP",fields: [shopID], references: [id])
+  shopID String
+  name String 
+  descriptions String 
+  price Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+}
+
+model tbl_user{
+  id String @id @default(uuid())
+  name String 
+  role  ROLE  @default(USER)
+  email String? 
+  mobile String?
+  shop tbl_owners @relation("SHOPUSER RELATIONSHIP",fields: [shopID], references: [id])
+  shopID String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+}
+
